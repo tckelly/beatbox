@@ -13,5 +13,22 @@ This project was inspired by a tutorial in the Head First Java book.
 - Visual grid to toggle beats for 16 different instruments
 - Start/stop playback with real-time audio output
 - Adjustable tempo, meter and looping playback
+- Save and load beats to/from disk
 - Uses standard MIDI percussion instruments
 
+---
+
+## How to Run
+
+### Prerequisites
+- Java 8 or higher installed
+
+### Run It
+```bash
+git clone https://github.com/tckelly/beatbox.git
+
+cd beatbox
+
+./mvnw clean install
+
+java -jar ./target/beatbox-1.0.0.jar
