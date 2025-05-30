@@ -5,28 +5,27 @@ import com.github.tckelly.beatbox.BeatBoxModel;
 import javax.swing.*;
 import java.awt.*;
 
-public class BeatBoxGridPanel extends JPanel {
+public class CheckBoxGridPanel extends JPanel {
 
     private final BeatBoxModel model;
 
-    public BeatBoxGridPanel(GridLayout gridLayout, BeatBoxModel model) {
-        super(gridLayout);
+    public CheckBoxGridPanel(BeatBoxModel model) {
+        super();
         this.model = model;
+        GridLayout gridLayout = new GridLayout(model.getInstruments().size(), model.getNumBeats());
+        gridLayout.setVgap(1);
+        gridLayout.setHgap(1);
+        setLayout(gridLayout);
         buildGrid();
     }
 
-    private void buildGrid() {
+    public void buildGrid() {
         boolean isCheckboxesEmpty = model.getCheckboxes().isEmpty();
         int checkboxNum = 0;
 
         for (int i = 0; i < model.getInstruments().size(); i++) {
-            String instrumentDescription = model.getInstruments().get(i).getDescription();
-
-            add(new JLabel(instrumentDescription));
-
             for (int j = 0; j < model.getNumBeats(); j++) {
                 JCheckBox cb;
-
                 if (isCheckboxesEmpty) {
                     cb = new JCheckBox();
                     cb.setSelected(false);
@@ -34,7 +33,6 @@ public class BeatBoxGridPanel extends JPanel {
                 } else {
                     cb = model.getCheckboxes().get(checkboxNum++);
                 }
-
                 add(cb);
             }
         }
