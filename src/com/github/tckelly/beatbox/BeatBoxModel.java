@@ -14,7 +14,7 @@ public class BeatBoxModel implements Serializable {
     private float tempo;
     private final List<JCheckBox> checkboxes;
 
-    public BeatBoxModel(Builder builder) {
+    private BeatBoxModel(Builder builder) {
         this.instruments = builder.getBuilderInstruments();
         this.numBeats = builder.getBuilderNumBeats();
         this.tempo = builder.getBuilderTempo();
