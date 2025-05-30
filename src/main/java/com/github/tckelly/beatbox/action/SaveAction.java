@@ -6,8 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,7 +43,7 @@ public class SaveAction extends AbstractAction {
     private void saveBeat(File saveFile, Window owner) {
         String message = "Saved beat successfully";
         boolean isErrorMessage = false;
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(saveFile))) {
+        try (ObjectOutputStream out = new ObjectOutputStream(Files.newOutputStream(saveFile.toPath()))) {
             out.writeObject(beatBoxPanel.getModel());
         } catch (Exception ex) {
             message = "Got an exception while saving beat to file";
