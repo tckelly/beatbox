@@ -1,11 +1,11 @@
 package com.github.tckelly.beatbox.component;
 
 import com.github.tckelly.beatbox.BeatBoxModel;
-import com.github.tckelly.beatbox.midi.MidiController;
 import com.github.tckelly.beatbox.action.ChangeNumBeatsAction;
 import com.github.tckelly.beatbox.action.SetTempoAction;
 import com.github.tckelly.beatbox.action.StartMidiAction;
 import com.github.tckelly.beatbox.action.StopMidiAction;
+import com.github.tckelly.beatbox.midi.MidiController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,15 +52,9 @@ public class BeatBoxPanel extends JPanel {
         JButton changeNumBeatsButton = new JButton(new ChangeNumBeatsAction(BeatBoxPanel.this));
         buttonPanel.add(changeNumBeatsButton, constraints);
 
-        // columns will include numBeats + instrument description
-        GridLayout grid = new GridLayout(model.getInstruments().size(), model.getNumBeats() + 1);
-
-        grid.setVgap(1);
-        grid.setHgap(1);
-
         // wrap beatbox to keep from resizing.
         JPanel wrapperPanel = new JPanel();
-        wrapperPanel.add(new BeatBoxGridPanel(grid, model));
+        wrapperPanel.add(new BeatBoxEditorPanel(model));
 
         JScrollPane scrollPane = new JScrollPane(wrapperPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
