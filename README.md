@@ -29,6 +29,4 @@ git clone https://github.com/tckelly/beatbox.git
 
 cd beatbox
 
-./mvnw clean install
-
-java -jar ./target/beatbox-1.0.0.jar
+./mvnw compile exec:java
