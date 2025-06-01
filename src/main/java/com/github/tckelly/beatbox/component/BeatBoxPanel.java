@@ -80,12 +80,12 @@ public class BeatBoxPanel extends JPanel {
             return;
         }
         SwingUtilities.invokeLater(() -> {
-            BeatBoxPanel.this.removeAll();
+            this.removeAll();
             this.model = model;
             construct();
             midiController.getSequencer().setTempoInBPM(this.model.getTempo());
-            BeatBoxPanel.this.revalidate();
-            BeatBoxPanel.this.repaint();
+            this.revalidate();
+            this.repaint();
         });
     }
 

@@ -20,20 +20,18 @@ public class CheckBoxGridPanel extends JPanel {
     }
 
     public void buildGrid() {
-        boolean isCheckboxesEmpty = model.getCheckboxes().isEmpty();
-        int checkboxNum = 0;
+        for (int row = 0; row < model.getInstruments().size(); row++) {
+            for (int col = 0; col < model.getNumBeats(); col++) {
+                boolean isSelected = model.getBeat(row, col);
+                JCheckBox checkBox = new JCheckBox();
+                checkBox.setSelected(isSelected);
 
-        for (int i = 0; i < model.getInstruments().size(); i++) {
-            for (int j = 0; j < model.getNumBeats(); j++) {
-                JCheckBox cb;
-                if (isCheckboxesEmpty) {
-                    cb = new JCheckBox();
-                    cb.setSelected(false);
-                    model.getCheckboxes().add(cb);
-                } else {
-                    cb = model.getCheckboxes().get(checkboxNum++);
-                }
-                add(cb);
+                int r = row;  // effectively final for lambda
+                int c = col;
+
+                checkBox.addActionListener(e -> model.setBeat(r, c, checkBox.isSelected()));
+
+                add(checkBox);
             }
         }
     }

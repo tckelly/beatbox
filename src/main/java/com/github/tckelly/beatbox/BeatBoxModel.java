@@ -6,19 +6,29 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JCheckBox;
-
 public class BeatBoxModel implements Serializable {
     private final List<Instrument> instruments;
     private final int numBeats;
     private float tempo;
-    private final List<JCheckBox> checkboxes;
+    private final List<List<Boolean>> beatGrid;
 
     private BeatBoxModel(Builder builder) {
         this.instruments = builder.getBuilderInstruments();
         this.numBeats = builder.getBuilderNumBeats();
         this.tempo = builder.getBuilderTempo();
-        this.checkboxes = new ArrayList<>();
+        this.beatGrid = initializeEmptyBeatGrid();
+    }
+
+    private List<List<Boolean>> initializeEmptyBeatGrid() {
+        List<List<Boolean>> grid = new ArrayList<>();
+        for (int i = 0; i < instruments.size(); i++) {
+            List<Boolean> row = new ArrayList<>();
+            for (int j = 0; j < numBeats; j++) {
+                row.add(Boolean.FALSE);
+            }
+            grid.add(row);
+        }
+        return grid;
     }
 
     public List<Instrument> getInstruments() {
@@ -33,8 +43,16 @@ public class BeatBoxModel implements Serializable {
         return tempo;
     }
 
-    public List<JCheckBox> getCheckboxes() {
-        return checkboxes;
+    public List<List<Boolean>> getBeatGrid() {
+        return beatGrid;
+    }
+
+    public void setBeat(int instrumentIndex, int beatIndex, boolean value) {
+        beatGrid.get(instrumentIndex).set(beatIndex, value);
+    }
+
+    public boolean getBeat(int instrumentIndex, int beatIndex) {
+        return beatGrid.get(instrumentIndex).get(beatIndex);
     }
 
     public void setTempo(float tempo) {

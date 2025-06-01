@@ -9,13 +9,15 @@ import javax.swing.*;
 
 public class BeatBoxApplication {
     public static void main(String[] args) {
-        BeatBoxModel sixteenBeatModel = new BeatBoxModel.Builder().numBeats(16).build();
-        JFrame frame = wrapInFrame("BeatBox", new BeatBoxPanel(sixteenBeatModel));
+        SwingUtilities.invokeLater(() -> {
+            BeatBoxModel sixteenBeatModel = new BeatBoxModel.Builder().numBeats(16).build();
+            JFrame frame = wrapInFrame("BeatBox", new BeatBoxPanel(sixteenBeatModel));
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        });
     }
 
     public static JFrame wrapInFrame(String title, BeatBoxPanel beatBoxPanel) {

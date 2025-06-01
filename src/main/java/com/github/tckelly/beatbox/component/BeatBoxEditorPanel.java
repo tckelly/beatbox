@@ -27,5 +27,4 @@ public class BeatBoxEditorPanel extends JPanel {
         Dimension instrumentLabelPreferredSize = instrumentLabelGridPanel.getPreferredSize();
         instrumentLabelGridPanel.setPreferredSize(new Dimension(instrumentLabelPreferredSize.width, checkBoxPreferredSize.height));
     }
-
 }

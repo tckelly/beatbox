@@ -4,7 +4,7 @@ import com.github.tckelly.beatbox.BeatBoxModel;
 import com.github.tckelly.beatbox.component.BeatBoxPanel;
 
 import javax.sound.midi.*;
-import javax.swing.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,13 +46,13 @@ public class MidiController {
     private void buildTrack(Sequence sequence, BeatBoxModel model) {
         Track track = sequence.createTrack();
 
-        for (int i = 0; i < model.getInstruments().size(); i++) {
+        for (int row = 0; row < model.getInstruments().size(); row++) {
             int[] trackList = new int[model.getNumBeats()];
-            int midiKey = model.getInstruments().get(i).getMidiNum();
+            int midiKey = model.getInstruments().get(row).getMidiNum();
 
-            for (int j = 0; j < model.getNumBeats(); j++) {
-                JCheckBox cb = model.getCheckboxes().get(j + model.getNumBeats() * i);
-                trackList[j] = cb.isSelected() ? midiKey : 0;
+            List<Boolean> beatRow = model.getBeatGrid().get(row);
+            for (int column = 0; column < model.getNumBeats(); column++) {
+                trackList[column] = beatRow.get(column) ? midiKey : 0;
             }
 
             makeTracks(trackList, model.getNumBeats(), track);
@@ -78,11 +78,11 @@ public class MidiController {
     }
 
     private void makeTracks(int[] list, int numBeats, Track track) {
-        for (int i = 0; i < numBeats; i++) {
-            int key = list[i];
+        for (int beat = 0; beat < numBeats; beat++) {
+            int key = list[beat];
             if (key != 0) {
-                track.add(makeEvent(144, 9, key, 100, i));
-                track.add(makeEvent(128, 9, key, 100, i + 1));
+                track.add(makeEvent(144, 9, key, 100, beat));
+                track.add(makeEvent(128, 9, key, 100, beat + 1));
             }
         }
     }
