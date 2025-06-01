@@ -7,7 +7,7 @@ import com.github.tckelly.beatbox.component.BeatBoxPanel;
 
 import javax.swing.*;
 
-public class BeatBoxApplication {
+public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             BeatBoxModel sixteenBeatModel = new BeatBoxModel.Builder().numBeats(16).build();

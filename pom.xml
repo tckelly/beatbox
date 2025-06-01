@@ -26,7 +26,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>com.github.tckelly.beatbox.BeatBoxApplication</mainClass>
+                    <mainClass>com.github.tckelly.beatbox.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
