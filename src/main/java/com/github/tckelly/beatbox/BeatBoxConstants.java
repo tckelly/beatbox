@@ -9,6 +9,7 @@ public class BeatBoxConstants {
     public static final int DEFAULT_TEMPO = 120;
     public static final int DEFAULT_NUM_BEATS = 16;
     private static final List<Instrument> instruments = new ArrayList<>();
+    static final String TITLE = "BeatBox";
 
     private BeatBoxConstants() {
         throw new AssertionError();

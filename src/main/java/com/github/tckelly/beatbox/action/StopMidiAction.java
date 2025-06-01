@@ -1,20 +1,20 @@
 package com.github.tckelly.beatbox.action;
 
-import com.github.tckelly.beatbox.midi.MidiController;
+import com.github.tckelly.beatbox.controller.BeatBoxController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class StopMidiAction extends AbstractAction {
-    private final transient MidiController midiController;
+    private final transient BeatBoxController controller;
 
-    public StopMidiAction(MidiController midiController) {
+    public StopMidiAction(BeatBoxController controller) {
         super("stop");
-        this.midiController = midiController;
+        this.controller = controller;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        midiController.getSequencer().stop();
+        controller.getMidiController().getSequencer().stop();
     }
 }

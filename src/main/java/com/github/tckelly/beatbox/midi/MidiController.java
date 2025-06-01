@@ -1,7 +1,6 @@
 package com.github.tckelly.beatbox.midi;
 
-import com.github.tckelly.beatbox.BeatBoxModel;
-import com.github.tckelly.beatbox.component.BeatBoxPanel;
+import com.github.tckelly.beatbox.controller.BeatBoxController;
 
 import javax.sound.midi.*;
 import java.util.List;
@@ -22,44 +21,43 @@ public class MidiController {
         }
     }
 
-    public void buildTrackAndStart(BeatBoxPanel beatBoxPanel) {
-        BeatBoxModel model = beatBoxPanel.getModel();
+    public void buildTrackAndStart(BeatBoxController controller) {
         Sequence sequence = buildNewSequence();
         if (sequence == null) {
             return;
         }
-        buildTrack(sequence, model);
-        setSequenceAndStart(sequence, model);
+        buildTrack(sequence, controller);
+        setSequenceAndStart(sequence, controller);
     }
 
-    private void setSequenceAndStart(Sequence sequence, BeatBoxModel model) {
+    private void setSequenceAndStart(Sequence sequence, BeatBoxController controller) {
         try {
             sequencer.setSequence(sequence);
             sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
-            sequencer.setTempoInBPM(model.getTempo());
+            sequencer.setTempoInBPM(controller.getTempo());
             sequencer.start();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
-    private void buildTrack(Sequence sequence, BeatBoxModel model) {
+    private void buildTrack(Sequence sequence, BeatBoxController controller) {
         Track track = sequence.createTrack();
 
-        for (int row = 0; row < model.getInstruments().size(); row++) {
-            int[] trackList = new int[model.getNumBeats()];
-            int midiKey = model.getInstruments().get(row).getMidiNum();
+        for (int row = 0; row < controller.getInstruments().size(); row++) {
+            int[] trackList = new int[controller.getNumBeats()];
+            int midiKey = controller.getInstruments().get(row).getMidiNum();
 
-            List<Boolean> beatRow = model.getBeatGrid().get(row);
-            for (int column = 0; column < model.getNumBeats(); column++) {
+            List<Boolean> beatRow = controller.getBeatRow(row);
+            for (int column = 0; column < controller.getNumBeats(); column++) {
                 trackList[column] = Boolean.TRUE.equals(beatRow.get(column)) ? midiKey : 0;
             }
 
-            makeTracks(trackList, model.getNumBeats(), track);
-            track.add(makeEvent(176, 1, 127, 0, model.getNumBeats()));
+            makeTracks(trackList, controller.getNumBeats(), track);
+            track.add(makeEvent(176, 1, 127, 0, controller.getNumBeats()));
         }
 
-        track.add(makeEvent(192, 9, 1, 0, model.getNumBeats() - 1));
+        track.add(makeEvent(192, 9, 1, 0, controller.getNumBeats() - 1));
     }
 
     /**

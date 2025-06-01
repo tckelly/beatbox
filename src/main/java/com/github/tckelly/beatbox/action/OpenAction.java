@@ -1,7 +1,7 @@
 package com.github.tckelly.beatbox.action;
 
 import com.github.tckelly.beatbox.BeatBoxModel;
-import com.github.tckelly.beatbox.component.BeatBoxPanel;
+import com.github.tckelly.beatbox.controller.BeatBoxController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +15,11 @@ import java.util.logging.Logger;
 public class OpenAction extends AbstractAction {
     private static final Logger LOGGER = Logger.getLogger(OpenAction.class.getName());
 
-    final BeatBoxPanel beatBoxPanel;
+    private final transient BeatBoxController beatBoxController;
 
-    public OpenAction(BeatBoxPanel beatBoxPanel) {
+    public OpenAction(BeatBoxController beatBoxController) {
         super("Open...");
-        this.beatBoxPanel = beatBoxPanel;
+        this.beatBoxController = beatBoxController;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class OpenAction extends AbstractAction {
             return;
         }
         try (ObjectInputStream in = new ObjectInputStream(Files.newInputStream(file.toPath()))) {
-            beatBoxPanel.refreshWithModel((BeatBoxModel) in.readObject());
+            beatBoxController.loadNewModel((BeatBoxModel) in.readObject());
         } catch (Exception ex) {
             String message = "Got an exception while reading beat from file";
             LOGGER.log(Level.SEVERE, message, ex);

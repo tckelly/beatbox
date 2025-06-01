@@ -1,6 +1,6 @@
 package com.github.tckelly.beatbox.action;
 
-import com.github.tckelly.beatbox.component.BeatBoxPanel;
+import com.github.tckelly.beatbox.controller.BeatBoxController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,11 +14,11 @@ import java.util.logging.Logger;
 public class SaveAction extends AbstractAction {
     private static final Logger LOGGER = Logger.getLogger(SaveAction.class.getName());
 
-    private final BeatBoxPanel beatBoxPanel;
+    private final transient BeatBoxController controller;
 
-    public SaveAction(BeatBoxPanel beatBoxPanel) {
+    public SaveAction(BeatBoxController controller) {
         super("Save...");
-        this.beatBoxPanel = beatBoxPanel;
+        this.controller = controller;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class SaveAction extends AbstractAction {
         String message = "Saved beat successfully";
         boolean isErrorMessage = false;
         try (ObjectOutputStream out = new ObjectOutputStream(Files.newOutputStream(saveFile.toPath()))) {
-            out.writeObject(beatBoxPanel.getModel());
+            out.writeObject(controller.getModel());
         } catch (Exception ex) {
             message = "Got an exception while saving beat to file";
             isErrorMessage = true;

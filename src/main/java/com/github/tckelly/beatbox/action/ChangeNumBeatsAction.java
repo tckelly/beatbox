@@ -1,18 +1,18 @@
 package com.github.tckelly.beatbox.action;
 
 import com.github.tckelly.beatbox.BeatBoxModel;
-import com.github.tckelly.beatbox.component.BeatBoxPanel;
+import com.github.tckelly.beatbox.controller.BeatBoxController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class ChangeNumBeatsAction extends AbstractAction {
-    private final BeatBoxPanel beatBoxPanel;
+    private final transient BeatBoxController controller;
 
-    public ChangeNumBeatsAction(BeatBoxPanel beatBoxPanel) {
+    public ChangeNumBeatsAction(BeatBoxController controller) {
         super("change number of beats");
-        this.beatBoxPanel = beatBoxPanel;
+        this.controller = controller;
     }
 
     @Override
@@ -28,12 +28,11 @@ public class ChangeNumBeatsAction extends AbstractAction {
             return;
         }
 
-        beatBoxPanel.getMidiController().getSequencer().stop();
-        beatBoxPanel.refreshWithModel(new BeatBoxModel.Builder().numBeats(numBeats).build());
+        controller.loadNewModel(new BeatBoxModel.Builder().numBeats(numBeats).build());
     }
 
     private Integer promptUserForNumBeats(Window parentComponent) {
-        String input = JOptionPane.showInputDialog(parentComponent, "Change number of beats?", Integer.toString(beatBoxPanel.getModel().getNumBeats()));
+        String input = JOptionPane.showInputDialog(parentComponent, "Change number of beats?", Integer.toString(controller.getModel().getNumBeats()));
 
         if (input == null) {
             return null;

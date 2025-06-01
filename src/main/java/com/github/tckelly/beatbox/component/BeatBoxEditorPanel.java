@@ -1,22 +1,22 @@
 package com.github.tckelly.beatbox.component;
 
-import com.github.tckelly.beatbox.BeatBoxModel;
+import com.github.tckelly.beatbox.controller.BeatBoxController;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class BeatBoxEditorPanel extends JPanel {
-    private final BeatBoxModel model;
+    private final transient BeatBoxController controller;
 
-    public BeatBoxEditorPanel(BeatBoxModel model) {
+    public BeatBoxEditorPanel(BeatBoxController controller) {
         super();
-        this.model = model;
+        this.controller = controller;
         build();
     }
 
     private void build() {
-        InstrumentLabelGridPanel instrumentLabelGridPanel = new InstrumentLabelGridPanel(model);
-        CheckBoxGridPanel checkBoxGridPanel = new CheckBoxGridPanel(model);
+        InstrumentLabelGridPanel instrumentLabelGridPanel = new InstrumentLabelGridPanel(controller);
+        CheckBoxGridPanel checkBoxGridPanel = new CheckBoxGridPanel(controller);
         setLabelsHeightToMatchCheckboxHeight(checkBoxGridPanel, instrumentLabelGridPanel);
         add(instrumentLabelGridPanel);
         add(checkBoxGridPanel);

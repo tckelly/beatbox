@@ -1,11 +1,10 @@
 package com.github.tckelly.beatbox.component;
 
-import com.github.tckelly.beatbox.BeatBoxModel;
 import com.github.tckelly.beatbox.action.ChangeNumBeatsAction;
 import com.github.tckelly.beatbox.action.SetTempoAction;
 import com.github.tckelly.beatbox.action.StartMidiAction;
 import com.github.tckelly.beatbox.action.StopMidiAction;
-import com.github.tckelly.beatbox.midi.MidiController;
+import com.github.tckelly.beatbox.controller.BeatBoxController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,13 +13,11 @@ import static java.awt.GridBagConstraints.*;
 
 public class BeatBoxPanel extends JPanel {
 
-    private transient BeatBoxModel model;
-    private final transient MidiController midiController;
+    private final transient BeatBoxController controller;
 
-    public BeatBoxPanel(BeatBoxModel model) {
+    public BeatBoxPanel(BeatBoxController controller) {
         super(new GridBagLayout());
-        this.model = model;
-        this.midiController = new MidiController();
+        this.controller = controller;
         construct();
     }
 
@@ -36,25 +33,25 @@ public class BeatBoxPanel extends JPanel {
 
         JPanel buttonPanel = new JPanel(new GridBagLayout());
 
-        JButton startButton = new JButton(new StartMidiAction(BeatBoxPanel.this));
+        JButton startButton = new JButton(new StartMidiAction(controller));
         buttonPanel.add(startButton, constraints);
 
-        JButton stopButton = new JButton(new StopMidiAction(midiController));
+        JButton stopButton = new JButton(new StopMidiAction(controller));
         buttonPanel.add(stopButton, constraints);
 
         constraints.gridheight = RELATIVE;
 
-        JButton setTempoButton = new JButton(new SetTempoAction(BeatBoxPanel.this));
+        JButton setTempoButton = new JButton(new SetTempoAction(controller));
         buttonPanel.add(setTempoButton, constraints);
 
         constraints.gridheight = REMAINDER;
 
-        JButton changeNumBeatsButton = new JButton(new ChangeNumBeatsAction(BeatBoxPanel.this));
+        JButton changeNumBeatsButton = new JButton(new ChangeNumBeatsAction(controller));
         buttonPanel.add(changeNumBeatsButton, constraints);
 
         // wrap beatbox to keep from resizing.
         JPanel wrapperPanel = new JPanel();
-        wrapperPanel.add(new BeatBoxEditorPanel(model));
+        wrapperPanel.add(new BeatBoxEditorPanel(controller));
 
         JScrollPane scrollPane = new JScrollPane(wrapperPanel);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -75,26 +72,14 @@ public class BeatBoxPanel extends JPanel {
         add(buttonPanel, constraints);
     }
 
-    public void refreshWithModel(BeatBoxModel model) {
-        if (model == null) {
-            return;
-        }
+    public void refreshWithModel() {
         SwingUtilities.invokeLater(() -> {
             this.removeAll();
-            this.model = model;
             construct();
-            midiController.getSequencer().stop();
-            midiController.getSequencer().setTempoInBPM(this.model.getTempo());
+            controller.getMidiController().getSequencer().stop();
+            controller.getMidiController().getSequencer().setTempoInBPM(controller.getModel().getTempo());
             this.revalidate();
             this.repaint();
         });
-    }
-
-    public BeatBoxModel getModel() {
-        return model;
-    }
-
-    public MidiController getMidiController() {
-        return midiController;
     }
 }

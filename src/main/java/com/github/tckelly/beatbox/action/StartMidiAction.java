@@ -1,20 +1,20 @@
 package com.github.tckelly.beatbox.action;
 
-import com.github.tckelly.beatbox.component.BeatBoxPanel;
+import com.github.tckelly.beatbox.controller.BeatBoxController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class StartMidiAction extends AbstractAction {
-    private final BeatBoxPanel beatBoxPanel;
+    private final transient BeatBoxController controller;
 
-    public StartMidiAction(BeatBoxPanel beatBoxPanel) {
+    public StartMidiAction(BeatBoxController controller) {
         super("start");
-        this.beatBoxPanel = beatBoxPanel;
+        this.controller = controller;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        beatBoxPanel.getMidiController().buildTrackAndStart(beatBoxPanel);
+        controller.getMidiController().buildTrackAndStart(controller);
     }
 }
