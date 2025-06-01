@@ -13,7 +13,7 @@ public class BeatBoxApplication {
             BeatBoxModel sixteenBeatModel = new BeatBoxModel.Builder().numBeats(16).build();
             JFrame frame = wrapInFrame("BeatBox", new BeatBoxPanel(sixteenBeatModel));
 
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);

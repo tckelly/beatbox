@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class StopMidiAction extends AbstractAction {
-    private final MidiController midiController;
+    private final transient MidiController midiController;
 
     public StopMidiAction(MidiController midiController) {
         super("stop");

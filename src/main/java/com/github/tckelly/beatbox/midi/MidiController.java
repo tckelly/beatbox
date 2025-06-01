@@ -52,7 +52,7 @@ public class MidiController {
 
             List<Boolean> beatRow = model.getBeatGrid().get(row);
             for (int column = 0; column < model.getNumBeats(); column++) {
-                trackList[column] = beatRow.get(column) ? midiKey : 0;
+                trackList[column] = Boolean.TRUE.equals(beatRow.get(column)) ? midiKey : 0;
             }
 
             makeTracks(trackList, model.getNumBeats(), track);

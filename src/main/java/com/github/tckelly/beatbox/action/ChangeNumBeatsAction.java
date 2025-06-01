@@ -44,6 +44,7 @@ public class ChangeNumBeatsAction extends AbstractAction {
         try {
             numBeats = Integer.parseInt(input.trim());
         } catch (NumberFormatException ignored) {
+            // we handle this below
         }
 
         if (numBeats < 1) {

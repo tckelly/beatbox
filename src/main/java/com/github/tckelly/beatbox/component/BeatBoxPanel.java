@@ -14,8 +14,8 @@ import static java.awt.GridBagConstraints.*;
 
 public class BeatBoxPanel extends JPanel {
 
-    private BeatBoxModel model;
-    private final MidiController midiController;
+    private transient BeatBoxModel model;
+    private final transient MidiController midiController;
 
     public BeatBoxPanel(BeatBoxModel model) {
         super(new GridBagLayout());
@@ -57,8 +57,8 @@ public class BeatBoxPanel extends JPanel {
         wrapperPanel.add(new BeatBoxEditorPanel(model));
 
         JScrollPane scrollPane = new JScrollPane(wrapperPanel);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         constraints.fill = BOTH;
         constraints.gridwidth = RELATIVE;
