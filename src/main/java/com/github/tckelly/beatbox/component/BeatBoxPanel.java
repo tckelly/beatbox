@@ -83,6 +83,7 @@ public class BeatBoxPanel extends JPanel {
             this.removeAll();
             this.model = model;
             construct();
+            midiController.getSequencer().stop();
             midiController.getSequencer().setTempoInBPM(this.model.getTempo());
             this.revalidate();
             this.repaint();

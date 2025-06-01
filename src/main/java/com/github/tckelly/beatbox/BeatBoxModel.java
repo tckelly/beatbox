@@ -60,7 +60,7 @@ public class BeatBoxModel implements Serializable {
     }
 
     public static class Builder {
-        // initalize builder with default values
+        // initialize builder with default values
         private List<Instrument> builderInstruments = BeatBoxConstants.getDefaultInstruments();
         private int builderNumBeats = BeatBoxConstants.DEFAULT_NUM_BEATS;
         private int builderTempo = BeatBoxConstants.DEFAULT_TEMPO;

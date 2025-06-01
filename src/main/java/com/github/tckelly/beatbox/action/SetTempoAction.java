@@ -44,5 +44,6 @@ public class SetTempoAction extends AbstractAction {
 
         model.setTempo(tempo);
         midiController.getSequencer().stop();
+        midiController.buildTrackAndStart(beatBoxPanel);
     }
 }
