@@ -15,6 +15,6 @@ public class StartMidiAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        controller.getMidiController().buildTrackAndStart(controller);
+        controller.buildTrackAndStartPlayback();
     }
 }

@@ -44,7 +44,7 @@ public class SaveAction extends AbstractAction {
         String message = "Saved beat successfully";
         boolean isErrorMessage = false;
         try (ObjectOutputStream out = new ObjectOutputStream(Files.newOutputStream(saveFile.toPath()))) {
-            out.writeObject(controller.getModel());
+            out.writeObject(controller.getModelDefensiveCopy());
         } catch (Exception ex) {
             message = "Got an exception while saving beat to file";
             isErrorMessage = true;

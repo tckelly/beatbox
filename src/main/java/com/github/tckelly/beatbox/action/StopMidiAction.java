@@ -15,6 +15,6 @@ public class StopMidiAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        controller.getMidiController().getSequencer().stop();
+        controller.stopPlayback();
     }
 }

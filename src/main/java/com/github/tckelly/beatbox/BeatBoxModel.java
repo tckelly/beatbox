@@ -20,6 +20,20 @@ public class BeatBoxModel implements Serializable {
         this.beatGrid = initializeEmptyBeatGrid();
     }
 
+    private BeatBoxModel(BeatBoxModel that) {
+        this.instruments = new ArrayList<>(that.getInstruments());
+        this.numBeats = that.getNumBeats();
+        this.tempo = that.getTempo();
+        this.beatGrid = new ArrayList<>();
+        for (List<Boolean> row : that.getBeatGrid()) {
+            this.beatGrid.add(new ArrayList<>(row));
+        }
+    }
+
+    public static BeatBoxModel copyOf(BeatBoxModel other) {
+        return new BeatBoxModel(other);
+    }
+
     private List<List<Boolean>> initializeEmptyBeatGrid() {
         List<List<Boolean>> grid = new ArrayList<>();
         for (int i = 0; i < instruments.size(); i++) {

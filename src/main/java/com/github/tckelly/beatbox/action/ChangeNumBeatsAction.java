@@ -32,7 +32,7 @@ public class ChangeNumBeatsAction extends AbstractAction {
     }
 
     private Integer promptUserForNumBeats(Window parentComponent) {
-        String input = JOptionPane.showInputDialog(parentComponent, "Change number of beats?", Integer.toString(controller.getModel().getNumBeats()));
+        String input = JOptionPane.showInputDialog(parentComponent, "Change number of beats?", Integer.toString(controller.getNumBeats()));
 
         if (input == null) {
             return null;

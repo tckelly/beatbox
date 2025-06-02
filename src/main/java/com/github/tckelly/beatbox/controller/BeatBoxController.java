@@ -23,6 +23,7 @@ public class BeatBoxController {
     }
 
     public void handleTempoChange(float newTempo) {
+        stopPlayback();
         model.setTempo(newTempo);
     }
 
@@ -36,12 +37,20 @@ public class BeatBoxController {
         view.refreshWithModel();
     }
 
+    public void stopPlayback() {
+        midiPlaybackService.getSequencer().stop();
+    }
+
+    public void buildTrackAndStartPlayback() {
+        midiPlaybackService.buildTrackAndStart(this);
+    }
+
     public List<Instrument> getInstruments() {
         return new ArrayList<>(this.model.getInstruments());
     }
 
-    public BeatBoxModel getModel() {
-        return model;
+    public BeatBoxModel getModelDefensiveCopy() {
+        return BeatBoxModel.copyOf(model);
     }
 
     public int getNumBeats() {
@@ -50,10 +59,6 @@ public class BeatBoxController {
 
     public boolean getBeat(int row, int col) {
         return model.getBeat(row, col);
-    }
-
-    public MidiPlaybackService getMidiController() {
-        return midiPlaybackService;
     }
 
     public List<Boolean> getBeatRow(int row) {
