@@ -23,15 +23,15 @@ public class BeatBoxLauncher {
             // fallback to default
         }
         BeatBoxApp app = BeatBoxAppFactory.createApp();
-        JFrame frame = createMainFrame(BeatBoxConstants.TITLE, app.getController(), app.getView());
+        JFrame frame = createMainFrame(app.getController(), app.getView());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
-    public static JFrame createMainFrame(String title, BeatBoxController controller, BeatBoxPanel view) {
-        final JFrame frame = new JFrame(title);
+    private static JFrame createMainFrame(BeatBoxController controller, BeatBoxPanel view) {
+        final JFrame frame = new JFrame(BeatBoxConstants.TITLE);
         frame.setJMenuBar(createJMenuBar(controller));
         frame.setContentPane(view);
         return frame;
