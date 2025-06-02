@@ -1,6 +1,8 @@
 package com.github.tckelly.beatbox.controller;
 
 import com.github.tckelly.beatbox.BeatBoxModel;
+import com.github.tckelly.beatbox.midi.dto.PlaybackData;
+import com.github.tckelly.beatbox.midi.dto.PlaybackSnapshot;
 import com.github.tckelly.beatbox.view.BeatBoxPanel;
 import com.github.tckelly.beatbox.midi.Instrument;
 import com.github.tckelly.beatbox.midi.MidiPlaybackService;
@@ -42,7 +44,7 @@ public class BeatBoxController {
     }
 
     public void buildTrackAndStartPlayback() {
-        midiPlaybackService.buildTrackAndStart(this);
+        midiPlaybackService.buildTrackAndStart(getPlaybackSnapshot());
     }
 
     public List<Instrument> getInstruments() {
@@ -61,11 +63,24 @@ public class BeatBoxController {
         return model.getBeat(row, col);
     }
 
-    public List<Boolean> getBeatRow(int row) {
-        return model.getBeatGrid().get(row);
-    }
-
     public float getTempo() {
         return model.getTempo();
+    }
+
+    public PlaybackData getPlaybackSnapshot() {
+        return new PlaybackSnapshot(
+                model.getTempo(),
+                model.getNumBeats(),
+                new ArrayList<>(model.getInstruments()),
+                deepCopyBeatGrid(model.getBeatGrid())
+        );
+    }
+
+    private List<List<Boolean>> deepCopyBeatGrid(List<List<Boolean>> original) {
+        List<List<Boolean>> copy = new ArrayList<>();
+        for (List<Boolean> row : original) {
+            copy.add(new ArrayList<>(row));
+        }
+        return copy;
     }
 }

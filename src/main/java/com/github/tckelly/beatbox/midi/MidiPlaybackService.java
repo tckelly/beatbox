@@ -1,6 +1,6 @@
 package com.github.tckelly.beatbox.midi;
 
-import com.github.tckelly.beatbox.controller.BeatBoxController;
+import com.github.tckelly.beatbox.midi.dto.PlaybackData;
 
 import javax.sound.midi.*;
 import java.util.List;
@@ -21,43 +21,43 @@ public class MidiPlaybackService {
         }
     }
 
-    public void buildTrackAndStart(BeatBoxController controller) {
+    public void buildTrackAndStart(PlaybackData playbackData) {
         Sequence sequence = buildNewSequence();
         if (sequence == null) {
             return;
         }
-        buildTrack(sequence, controller);
-        setSequenceAndStart(sequence, controller);
+        buildTrack(sequence, playbackData);
+        setSequenceAndStart(sequence, playbackData);
     }
 
-    private void setSequenceAndStart(Sequence sequence, BeatBoxController controller) {
+    private void setSequenceAndStart(Sequence sequence, PlaybackData playbackData) {
         try {
             sequencer.setSequence(sequence);
             sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
-            sequencer.setTempoInBPM(controller.getTempo());
+            sequencer.setTempoInBPM(playbackData.getTempo());
             sequencer.start();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
-    private void buildTrack(Sequence sequence, BeatBoxController controller) {
+    private void buildTrack(Sequence sequence, PlaybackData playbackData) {
         Track track = sequence.createTrack();
 
-        for (int row = 0; row < controller.getInstruments().size(); row++) {
-            int[] trackList = new int[controller.getNumBeats()];
-            int midiKey = controller.getInstruments().get(row).getMidiNum();
+        for (int row = 0; row < playbackData.getInstruments().size(); row++) {
+            int[] trackList = new int[playbackData.getNumBeats()];
+            int midiKey = playbackData.getInstruments().get(row).getMidiNum();
 
-            List<Boolean> beatRow = controller.getBeatRow(row);
-            for (int column = 0; column < controller.getNumBeats(); column++) {
+            List<Boolean> beatRow = playbackData.getBeatRow(row);
+            for (int column = 0; column < playbackData.getNumBeats(); column++) {
                 trackList[column] = Boolean.TRUE.equals(beatRow.get(column)) ? midiKey : 0;
             }
 
-            makeTracks(trackList, controller.getNumBeats(), track);
-            track.add(makeEvent(176, 1, 127, 0, controller.getNumBeats()));
+            makeTracks(trackList, playbackData.getNumBeats(), track);
+            track.add(makeEvent(176, 1, 127, 0, playbackData.getNumBeats()));
         }
 
-        track.add(makeEvent(192, 9, 1, 0, controller.getNumBeats() - 1));
+        track.add(makeEvent(192, 9, 1, 0, playbackData.getNumBeats() - 1));
     }
 
     /**
