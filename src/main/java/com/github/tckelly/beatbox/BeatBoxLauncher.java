@@ -43,7 +43,7 @@ public class BeatBoxLauncher {
         fileMenu.add(new OpenAction(controller));
         fileMenu.add(new SaveAction(controller));
         fileMenu.addSeparator();
-        fileMenu.add(new JMenuItem(new ExitAction()));
+        fileMenu.add(new ExitAction());
         menuBar.add(fileMenu);
         return menuBar;
     }
