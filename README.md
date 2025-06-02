@@ -6,7 +6,13 @@ object-oriented programming, GUI development, and MIDI event handling.
 
 This project was inspired by a tutorial in the Head First Java book.
 
----
+## Table of Contents
+
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [How to Run](#how-to-run)
+- [Design Patterns Implemented](#design-patterns-implemented)
+- [License](#license)
 
 ## Features
 
@@ -16,7 +22,9 @@ This project was inspired by a tutorial in the Head First Java book.
 - Save and load beats to/from disk
 - Uses standard MIDI percussion instruments
 
----
+## Screenshots
+
+![Main Interface](images/main_interface.png)
 
 ## How to Run
 
@@ -30,3 +38,19 @@ git clone https://github.com/tckelly/beatbox.git
 cd beatbox
 
 ./mvnw compile exec:java
+```
+
+## Design Patterns Implemented
+
+This project demonstrates the use of several design patterns:
+
+- **Model–View–Controller (MVC)**: Separates concerns among data management (`BeatBoxModel`), user interface (`BeatBoxPanel`), and control logic (`BeatBoxController`).
+- **Builder Pattern**: Utilized in `BeatBoxModel.Builder` for constructing model instances with customizable configurations.
+- **Factory Method Pattern**: Implemented in `BeatBoxAppFactory` to encapsulate the creation logic of application components.
+- **Prototype Pattern**: Employed in `BeatBoxController.getModelDefensiveCopy()` to create copies of the model for operations like saving and loading.
+- **Command Pattern**: Action classes (`SaveAction`, `OpenAction`, `ExitAction`, etc.) encapsulate operations, promoting modularity and reusability.
+- **Observer Pattern**: Used in `CheckBoxGridPanel` via multiple `ActionListener` implementations. The application's architecture supports future integration of observer mechanisms for completely responsive UI updates.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
