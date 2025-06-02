@@ -50,6 +50,7 @@ This project demonstrates the use of several design patterns:
 - **Prototype Pattern**: Employed in `BeatBoxController.getModelDefensiveCopy()` to create copies of the model for operations like saving and loading.
 - **Command Pattern**: Action classes (`SaveAction`, `OpenAction`, `ExitAction`, etc.) encapsulate operations, promoting modularity and reusability.
 - **Observer Pattern**: Used in `CheckBoxGridPanel` via multiple `ActionListener` implementations. The application's architecture supports future integration of observer mechanisms for completely responsive UI updates.
+- **Data Transfer Object (DTO)**: The PlaybackData interface is used to expose only the playback state to the MIDI layer, keeping the model encapsulated.
 
 ## License
 
