@@ -1,6 +1,6 @@
 package com.github.tckelly.beatbox;
 
-import com.github.tckelly.beatbox.component.BeatBoxPanel;
+import com.github.tckelly.beatbox.view.BeatBoxPanel;
 import com.github.tckelly.beatbox.controller.BeatBoxController;
 
 public class BeatBoxAppFactory {

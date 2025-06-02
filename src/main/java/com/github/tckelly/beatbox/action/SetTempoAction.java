@@ -1,7 +1,7 @@
 package com.github.tckelly.beatbox.action;
 
 import com.github.tckelly.beatbox.controller.BeatBoxController;
-import com.github.tckelly.beatbox.midi.MidiController;
+import com.github.tckelly.beatbox.midi.MidiPlaybackService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,9 +23,9 @@ public class SetTempoAction extends AbstractAction {
             parentComponent = SwingUtilities.getWindowAncestor((Component) e.getSource());
         }
 
-        MidiController midiController = controller.getMidiController();
+        MidiPlaybackService midiPlaybackService = controller.getMidiController();
 
-        String input = JOptionPane.showInputDialog(parentComponent, "Change tempo?", Float.toString(midiController.getSequencer().getTempoInBPM()));
+        String input = JOptionPane.showInputDialog(parentComponent, "Change tempo?", Float.toString(midiPlaybackService.getSequencer().getTempoInBPM()));
 
         if (input == null) {
             return;
@@ -41,7 +41,7 @@ public class SetTempoAction extends AbstractAction {
         }
 
         controller.handleTempoChange(tempo);
-        midiController.getSequencer().stop();
-        midiController.buildTrackAndStart(controller);
+        midiPlaybackService.getSequencer().stop();
+        midiPlaybackService.buildTrackAndStart(controller);
     }
 }

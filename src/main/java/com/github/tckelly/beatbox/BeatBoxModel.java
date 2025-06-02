@@ -1,6 +1,7 @@
 package com.github.tckelly.beatbox;
 
 import com.github.tckelly.beatbox.midi.Instrument;
+import com.github.tckelly.beatbox.util.BeatBoxConstants;
 
 import java.io.Serializable;
 import java.util.ArrayList;

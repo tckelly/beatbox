@@ -1,4 +1,4 @@
-package com.github.tckelly.beatbox;
+package com.github.tckelly.beatbox.util;
 
 import com.github.tckelly.beatbox.midi.Instrument;
 
@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BeatBoxConstants {
-    public static final int DEFAULT_TEMPO = 120;
-    public static final int DEFAULT_NUM_BEATS = 16;
     private static final List<Instrument> instruments = new ArrayList<>();
-    static final String TITLE = "BeatBox";
+    public static final int DEFAULT_NUM_BEATS = 16;
+    public static final int DEFAULT_TEMPO = 120;
+    public static final String TITLE = "BeatBox";
 
     private BeatBoxConstants() {
         throw new AssertionError();

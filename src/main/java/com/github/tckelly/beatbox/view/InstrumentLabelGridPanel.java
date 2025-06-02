@@ -1,4 +1,4 @@
-package com.github.tckelly.beatbox.component;
+package com.github.tckelly.beatbox.view;
 
 import com.github.tckelly.beatbox.controller.BeatBoxController;
 

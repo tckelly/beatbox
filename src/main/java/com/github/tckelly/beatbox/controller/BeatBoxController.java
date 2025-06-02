@@ -1,9 +1,9 @@
 package com.github.tckelly.beatbox.controller;
 
 import com.github.tckelly.beatbox.BeatBoxModel;
-import com.github.tckelly.beatbox.component.BeatBoxPanel;
+import com.github.tckelly.beatbox.view.BeatBoxPanel;
 import com.github.tckelly.beatbox.midi.Instrument;
-import com.github.tckelly.beatbox.midi.MidiController;
+import com.github.tckelly.beatbox.midi.MidiPlaybackService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +11,11 @@ import java.util.List;
 public class BeatBoxController {
     private BeatBoxModel model;
     private BeatBoxPanel view;
-    private final MidiController midiController;
+    private final MidiPlaybackService midiPlaybackService;
 
     public BeatBoxController(BeatBoxModel model) {
         this.model = model;
-        this.midiController = new MidiController();
+        this.midiPlaybackService = new MidiPlaybackService();
     }
 
     public void setView(BeatBoxPanel view) {
@@ -24,7 +24,6 @@ public class BeatBoxController {
 
     public void handleTempoChange(float newTempo) {
         model.setTempo(newTempo);
-//        view.updateTempoDisplay(newTempo); // If you have a display component
     }
 
     public void handleToggleCell(int instrumentIndex, int beatIndex) {
@@ -53,8 +52,8 @@ public class BeatBoxController {
         return model.getBeat(row, col);
     }
 
-    public MidiController getMidiController() {
-        return midiController;
+    public MidiPlaybackService getMidiController() {
+        return midiPlaybackService;
     }
 
     public List<Boolean> getBeatRow(int row) {

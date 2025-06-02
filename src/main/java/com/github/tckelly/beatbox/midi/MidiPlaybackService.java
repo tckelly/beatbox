@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MidiController {
-    private static final Logger LOGGER = Logger.getLogger(MidiController.class.getName());
+public class MidiPlaybackService {
+    private static final Logger LOGGER = Logger.getLogger(MidiPlaybackService.class.getName());
 
     private Sequencer sequencer;
 
-    public MidiController() {
+    public MidiPlaybackService() {
         try {
             sequencer = MidiSystem.getSequencer();
             sequencer.open();

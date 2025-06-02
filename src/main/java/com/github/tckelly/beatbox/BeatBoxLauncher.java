@@ -1,10 +1,12 @@
 package com.github.tckelly.beatbox;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import com.github.tckelly.beatbox.action.ExitAction;
 import com.github.tckelly.beatbox.action.OpenAction;
 import com.github.tckelly.beatbox.action.SaveAction;
-import com.github.tckelly.beatbox.component.BeatBoxPanel;
 import com.github.tckelly.beatbox.controller.BeatBoxController;
+import com.github.tckelly.beatbox.util.BeatBoxConstants;
+import com.github.tckelly.beatbox.view.BeatBoxPanel;
 
 import javax.swing.*;
 
@@ -15,6 +17,11 @@ public class BeatBoxLauncher {
     }
 
     private static void launchApplication() {
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (UnsupportedLookAndFeelException ignored) {
+            // fallback to default
+        }
         BeatBoxApp app = BeatBoxAppFactory.createApp();
         JFrame frame = createMainFrame(BeatBoxConstants.TITLE, app.getController(), app.getView());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
